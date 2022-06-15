@@ -8,6 +8,7 @@ def remove_duplicates(list):
 
     return  filtered_list
 
+
 # Converts a list to a dictionary
 # element value -> key 
 # element count in list -> value
@@ -21,4 +22,42 @@ def reduce_list_to_quantity_dict(list):
             dict[element] = 1
     
     return dict
-    
+
+
+# Asks the user a yes or no question
+# Yes returns True
+# No returns False
+def ask_yes_no_question(prompt):
+    user_input = input(prompt).lower()
+
+    if user_input in ['y' or 'yes']:
+        return True
+
+    return False
+
+
+# Uses regular expressions to search a file for capture groups
+def search_file_for_info(file_name, regular_expression):
+    import re
+
+    with open(file_name) as file:
+        lines = file.readlines()
+
+    matches = []
+    for line in lines:
+        match = re.search(regular_expression, line)
+
+        if match:
+            match = match.groups()
+            matches.append(match)
+
+    return matches
+
+
+# Uses regular expressions to search some text for capture groups
+def search_text_for_info(search_text, regular_expression):
+    import re
+
+    match = re.findall(regular_expression, search_text)
+
+    return match
