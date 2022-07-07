@@ -25,6 +25,7 @@ class SortingAlgorithms:
     BUBBLE = 2
     MERGE = 3
     QUICK = 4
+    COUNTING = 5
 
 
 class OrderTypes:
@@ -216,6 +217,44 @@ def _partition(array, low, high):
 
 
 """
+Counting sort is an algorithm that uses indexes in arrays to store the number of elements that correspond to that 
+index. Sounds a little confusing. Here is an example.
+
+Original List: [2,5,6,4,5,1]
+Indexes List: [0,1,1,0,1,2,1]
+Indexes List after refactoring: [0,1,2,2,3,5,6]
+"""
+def counting_sort(array):
+    indexes = []
+    maximum_index = max(array)
+    for i in range(maximum_index + 1):
+        indexes.append(0)
+
+    for value in array:
+        indexes[value] += 1
+
+    for i in range(1, len(indexes)):
+        first = indexes[i - 1]
+        second = indexes[i]
+
+        indexes[i] = first + second
+
+    output = []
+
+    for i in range(len(indexes)):
+        last_num = 0
+        if i != 0:
+            last_num = indexes[i - 1]
+        iterations = indexes[i]
+        while iterations - last_num > 0:
+            output.append(i)
+            iterations -= 1
+
+    for i in range(len(array)):
+        array[i] = output[i]
+
+
+"""
 This benchmarking method takes in 4 parameters:
     n : The number of elements to sort
     sorting_algorithm : A SortingAlgorithms class property value to determine which algorithm to use for sorting
@@ -232,8 +271,10 @@ def benchmark(n, sorting_algorithm, order_type, pt=True):
             unsorted_list.append(n - i - 1)
 
         elif order_type == OrderTypes.RANDOM:
-            random_num = random.randint(0, n)
+            random_num = random.randint(0, n - 1)
             unsorted_list.append(random_num)
+
+    sorted_list = sorted(unsorted_list)
 
     start = end = 0
     algorithm_string = ""
@@ -268,9 +309,19 @@ def benchmark(n, sorting_algorithm, order_type, pt=True):
         end = time.perf_counter()
         algorithm_string = "Quick Sort"
 
+    elif sorting_algorithm == SortingAlgorithms.COUNTING:
+        start = time.perf_counter()
+        counting_sort(unsorted_list)
+        end = time.perf_counter()
+        algorithm_string = "Counting Sort"
+
     elapsed_time = end - start
 
     if pt:
-        print("{} - Elapsed Time: {} seconds".format(algorithm_string, elapsed_time))
+        if sorted_list == unsorted_list:
+            print("{} - Elapsed Time: {} seconds - Correct".format(algorithm_string, elapsed_time))
+        else:
+            print("{} - Elapsed Time: {} seconds - Incorrect".format(algorithm_string, elapsed_time))
 
     return elapsed_time
+   
