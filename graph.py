@@ -55,14 +55,11 @@ class Graph:
     # Function to find a vertex (input: int or Vertex)
     def find_vertex(self, vertex):
 
-        if not vertex:
-            return None
-
         if type(vertex) is int:
             for v in self.vertices:
                 if vertex == v.data:
                     return v
-        else:
+        elif type(vertex) is Vertex:
             for v in self.vertices:
                 if vertex.data == v.data:
                     return v
@@ -76,6 +73,7 @@ class Graph:
             if type(new_vertex) is int:
                 new_vertex = Vertex(new_vertex)
             self.vertices.append(new_vertex)
+            self.size += 1
             return new_vertex
         else:
             raise Exception("This vertex already exists within this graph")
