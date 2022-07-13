@@ -14,6 +14,7 @@ This file is full of the following fully functional sorting algorithms:
  - bubble
  - merge
  - quick
+ - counting
 """
 import random
 import time
