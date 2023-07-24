@@ -6,6 +6,18 @@ import threading
 import pyautogui
 
 # ----------------------------------------------------------------
+# Use the code below to create an exe. Place it in a file and edit 
+# ----------------------------------------------------------------
+# import PyInstaller.__main__
+# PyInstaller.__main__.run([
+#    '{script_name}.py',
+#    '--onefile',
+#    '--windowed',
+#    "--icon={icon_name}.ico"
+# ])
+# ----------------------------------------------------------------
+
+# ----------------------------------------------------------------
 # Install a new pip package
 # ----------------------------------------------------------------
 def install_pip_package(package_name):
