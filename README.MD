@@ -7,5 +7,4 @@ This is a Python3 utility library. It currently contains the following implement
  - Queue
  - A sorting algorithms util that contains Insertion, Selection, Bubble, Merge, Quick, and Counting sorting algorithms along with a benchmarking function for those sorts.
 
-I will be adding to this as time goes on, I just contribute whenever I have time. All of this code was of my own creation, feel free to use it for anything. 
-I am not sure who else will be looking at this, but if you have suggestions for utilities I can put in here to increase my chance of being hired somewhere, please message me: gaugerderek@gmail.com
+I am very slowly adding to this. My latest addition is the automation.py -- it is used to automate different tasks on a computer. I mainly use the functions in there to make my life easier by opening programs and logging into them automatically. It saves me a bit of effort.
