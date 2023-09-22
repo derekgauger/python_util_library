@@ -1,63 +1,25 @@
-# Removes the duplicates in a list and returns the filtered list
-# Example: [1,2,2,3,3,3,4,4,4,4,5,5,5,5,5] will reduce to [1,2,3,4,5]
-def remove_duplicates(list):
-    filtered_list =  []
-    for element in list:
-        if element not in filtered_list:
-            filtered_list.append(element)
+FOREGROUND_BLACK = 0x00
+FOREGROUND_BLUE = 0x01
+FOREGROUND_GREEN = 0x02
+FOREGROUND_CYAN = 0x03
+FOREGROUND_RED = 0x04
+FOREGROUND_MAGENTA = 0x05
+FOREGROUND_YELLOW = 0x06
+FOREGROUND_GREY = 0x07
+FOREGROUND_INTENSITY = 0x08  # Foreground text is bold
 
-    return  filtered_list
+# Background colors
+BACKGROUND_BLUE = 0x10
+BACKGROUND_GREEN = 0x20
+BACKGROUND_CYAN = 0x30
+BACKGROUND_RED = 0x40
+BACKGROUND_MAGENTA = 0x50
+BACKGROUND_YELLOW = 0x60
+BACKGROUND_GREY = 0x70
+BACKGROUND_INTENSITY = 0x80  # Background text is bold
 
-
-# Converts a list to a dictionary
-# element value -> key 
-# element count in list -> value
-# Example: [1,2,2,3,3,3,4,4,4,4,5,5,5,5,5] will change to {'1': 1, '2': 2, '3': 3, '4': 4, '5': 5}
-def reduce_list_to_quantity_dict(list):
-    dict = {}
-    for element in list:
-        if element in dict:
-            dict[element] += 1
-        else:
-            dict[element] = 1
-    
-    return dict
-
-
-# Asks the user a yes or no question
-# Yes returns True
-# No returns False
-def ask_yes_no_question(prompt):
-    user_input = input(prompt).lower()
-
-    if user_input in ['y' or 'yes']:
-        return True
-
-    return False
-
-
-# Uses regular expressions to search a file for capture groups
-def search_file_for_info(file_name, regular_expression):
-    import re
-
-    with open(file_name) as file:
-        lines = file.readlines()
-
-    matches = []
-    for line in lines:
-        match = re.search(regular_expression, line)
-
-        if match:
-            match = match.groups()
-            matches.append(match)
-
-    return matches
-
-
-# Uses regular expressions to search some text for capture groups
-def search_text_for_info(search_text, regular_expression):
-    import re
-
-    match = re.findall(regular_expression, search_text)
-
-    return match
+def set_cmd_text_color(color, handle_std_handle=True):
+    """Changes the cmd prompt output color"""
+    STD_OUTPUT_HANDLE = -11 if handle_std_handle else -12
+    h = ctypes.windll.kernel32.GetStdHandle(STD_OUTPUT_HANDLE)
+    ctypes.windll.kernel32.SetConsoleTextAttribute(h, color)
